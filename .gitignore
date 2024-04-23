@@ -1,0 +1,4 @@
+# Folders to ignore
+vendor/
+# Generated files
+.DS_Store
