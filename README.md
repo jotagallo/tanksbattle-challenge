@@ -43,4 +43,4 @@ A few notes about that:
 - Engine protects the tank from obstacles, and can define how many moves a tank can make in a battle.
 - Speed determines how far the tank can move on the map. Heavy tanks cannot move too far, but combined with Engine it can last longer.
 - The score of a winner tank would be determined by it's health points by the end of the battle and the extra damage it took from the defeated tank after it reached zero points of health.
-- For example, if a defeated tank was with 20pts of health, took a 50pts of damage, it ended with -20pts. The winner tank was with 40pts of healfh, so the total score for the winner would be 60pts.
+- For example, if a defeated tank was with 20pts of health, took a 50pts of damage, it ended with -30pts. The winner tank was with 40pts of healfh, so the total score for the winner would be 70pts.
