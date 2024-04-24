@@ -6,7 +6,38 @@
   <title>Battle of Stalingrad</title>
 </head>
 <body>
-<h1>Choose the tanks:</h1>
+<h1>-- Choose the tanks --</h1>
+<h3>- Players were chosen randomly -</h3>
+<form action="/game" method="POST">
+<input type="hidden" name="num" value="{{ games|length }}">
+{% for game in games %}
+  {% set gameId = loop.index %}
+  <h3 style="clear:both;">Game {{ loop.index }}</h3>
+  <div style="float:left;border: 1px solid #aaa;margin-bottom:2rem;padding:1rem">
+    {% for id, player in game.players %}
+      <input type="hidden" name="game{{ gameId }}_player{{ loop.index }}" value="{{ id }}" />
+      <div style="float:left;margin:0 5rem 0 1rem;">
+        <h4 style="margin:0;font-size:120%;font-weight:normal;">Player {{ loop.index }}: 
+          <strong>{{ player.name }}</strong>
+        </h4>
+        <br />
+        {% for key, tank in tanks %}
+          <input type="radio" id="tank-id-{{ key }}"  
+            name="game{{ gameId }}_player{{ loop.parent.loop.index }}_tank"
+            value="{{ key }}" 
+          />
+          <label for="tank-id-{{ key }}">{{ tank.name }}</label>
+          <br />
+          <i style="margin-left:1.5rem;">{{ tank.description }}</i>
+          <br />
+        {% endfor %}
+        
+      </div>
+    {% endfor %}
+  </div>
+{% endfor %}
+<button type="submit" style="display:block;clear:both;margin-left:1rem;">LET'S FIGHT</button>
+</form>
 
 </body>
 </html>

@@ -11,6 +11,6 @@ $controllers = 'TanksBattle\\Controllers\\';
 $routes = [
   '/' => 'GameController::index',
   '/prepare' => 'GameController::prepare',
-  '/run' => 'GameController::run',
+  '/game' => 'GameController::run',
   '/api/v1/*' => 'GameController::api'
 ];

@@ -1,21 +1,43 @@
 <?php
 
 namespace TanksBattle\Repository;
-use Exception;
 use MongoDB\Client;
+use MongoDB\Database;
+use MongoDB\Collection;
+use MongoDB\Driver\Cursor;
 use MongoDB\Driver\ServerApi;
+use MongoDB\Driver\Query;
 
 trait DbConnection 
 {
-  protected Client $client;
-  public function __construct()
+  protected function _db(): Database
   {
-    parent::__construct(...func_get_args());
     try {
-      require_once __DIR__ . '/../settings.php';
-      $this->client = new Client($mongodb, [], ['serverApi' => new ServerApi(ServerApi::V1)]);
-    } catch (Exception $e) {
+      require __DIR__ . '/../settings.php';
+      $client = new Client($mongodb, [], ['serverApi' => new ServerApi(ServerApi::V1)]);
+      return $client->$dbname;
+    } catch (\Exception $e) {
         printf($e->getMessage()); exit(1);
     }
   }
+
+  protected function _collection(string $collection): Collection
+  {
+    return $this->_db()->$collection;
+  }
+
+  protected function _query(array $filter, array $options): Query
+  {
+    return new Query($filter, $options);
+  }
+
+  protected function _parse(Cursor $cursor): array
+  {
+    $return = [];
+    foreach ($cursor as $row) {
+      $return[(string) $row->_id] = $row->jsonSerialize();
+    }
+    return $return;
+  }
+
 }

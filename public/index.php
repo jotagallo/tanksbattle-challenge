@@ -7,7 +7,7 @@ require_once  __DIR__ . '/../app/routes.php';
 $loader = new \Twig\Loader\FilesystemLoader( __DIR__ . '/../views');
 $twig = new \Twig\Environment($loader, []);
 // Front controller for routes - basic url filtering
-$url = htmlspecialchars($_SERVER['REQUEST_URI']);
+$url = htmlspecialchars(strtok($_SERVER["REQUEST_URI"], '?'));
 array_walk($routes, function($v, $k) use($url, $controllers, $twig){
   $arg = (stripos($k, '*') !== FALSE) ? explode('/*', $k)[0] : NULL;
   if ($k === $url || ($arg && stripos($url, $arg) !== FALSE)) {
